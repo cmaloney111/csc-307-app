@@ -56,10 +56,44 @@ const findUserByNameAndJob = (name, job) => {
   }
 };
 
+function generateId() {
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
+  const numbers = '0123456789';
+  let id = '';
+
+  // Generate 3 random letters then numbers
+  for (let i = 0; i < 3; i++) {
+    id += letters.charAt(Math.floor(Math.random() * letters.length));
+  }
+
+  for (let i = 0; i < 3; i++) {
+    id += numbers.charAt(Math.floor(Math.random() * numbers.length));
+  }
+
+  return id;
+}
+
+function generateUniqueId() {
+  let id = generateId();
+  while (findUserById(id) != undefined) {
+    id = generateId();
+  }
+  return id;
+}
+
+
+const addIdToUser = (user) => {
+  let newID = generateUniqueId();
+  const newUser = { id: newID, ...user};
+  return newUser;
+}
+
 const findUserById = (id) =>
   users["users_list"].find((user) => user["id"] === id);
   
+
 const addUser = (user) => {
+  user = addIdToUser(user);
   users["users_list"].push(user);
   return user;
 };
@@ -84,8 +118,9 @@ app.delete("/users/:id", (req, res) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
-  addUser(userToAdd);
-  res.send();
+  let user = addUser(userToAdd);
+  console.log(user);
+  res.status(201).send(user);
 });
 
 app.get("/users/:id", (req, res) => {
