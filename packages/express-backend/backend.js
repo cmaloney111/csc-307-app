@@ -102,10 +102,10 @@ const removeUser = (id) => {
   let index_by_id = users["users_list"].indexOf(findUserById(id));
   if (index_by_id > -1) {
     users["users_list"].splice(index_by_id, 1);
-    return 200;
+    return 204;
   }
   else {
-    return 400;
+    return 404;
   }
 }
 
