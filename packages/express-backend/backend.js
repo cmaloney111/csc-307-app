@@ -39,7 +39,7 @@ app.get("/users/:id", (req, res) => {
                    res.send(result);
                  }
                  else {
-                   res.status(404).send(`Not found: ${id})`);
+                   res.status(404).send(`Not found: ${id}`);
                  }
                })
                .catch((error) => {
@@ -50,17 +50,9 @@ app.get("/users/:id", (req, res) => {
 app.get("/users", (req, res) => {
   const job = req.query.job;
   const name = req.query.name;
-  console.log(req);
-  console.log(name);
-  console.log(job);
   userService.getUsers(name, job)
                .then((result) => {
-                 if (result) {
                    res.send(result);
-                 }
-                 else {
-                   res.status(404).send(`Not found: name = ${name}, job = ${job})`);
-                 }
                })
                .catch((error) => {
                  res.status(500).send(error.name);

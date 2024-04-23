@@ -29,7 +29,7 @@ function findUserById(id) {
 }
 
 function removeUser(id) {
-  return userModel.deleteOne({ _id: id });
+  return userModel.findByIdAndDelete(id);
 }
 
 function addUser(user) {
