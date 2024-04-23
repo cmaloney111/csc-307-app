@@ -48,11 +48,11 @@ app.get("/users/:id", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-  let job = req.query.job;
-  let name = req.query.name;
+  const job = req.query.job;
+  const name = req.query.name;
+  console.log(req);
   console.log(name);
   console.log(job);
-  
   userService.getUsers(name, job)
                .then((result) => {
                  if (result) {
