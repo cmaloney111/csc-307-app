@@ -8,7 +8,7 @@ function MyApp() {
   useEffect(() => {
     fetchUsers()
       .then((res) => res.json())
-      .then((json) => setCharacters(json["users_list"]))
+      .then((json) => setCharacters(json))
       .catch((error) => { console.log(error); });
   }, [] );
 
@@ -16,7 +16,7 @@ function MyApp() {
     let user_id = -1;
     const updated = characters.filter((character, i) => {
       if (i == index) {
-        user_id = character["id"];
+        user_id = character["_id"];
       }
       return i !== index;
     });
